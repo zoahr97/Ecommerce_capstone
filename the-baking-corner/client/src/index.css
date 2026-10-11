@@ -1,0 +1,627 @@
+:root {
+  /* צבעי רקע - קרם חמים ואלגנטי במקום לבן בוהק */
+  --bg-primary: #FAF9F6; 
+  --bg-card: #FFFFFF;
+  
+  /* צבעי טקסט - אפור פחם / חום כהה עדין לעין */
+  --text-main: #33312E; 
+  --text-muted: #7A7571;
+  
+  /* צבע הדגשה (למשל לכפתורים או למחירים) - זהב/מוקה עדין */
+  --accent-color: #C1A68D; 
+  --accent-hover: #A88F75;
+  
+  /* גבולות דקים */
+  --border-light: #EBE5DF;
+}
+
+/* הגדרות בסיס לכל האפליקציה */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  /* פונט נקי לטקסט רגיל (רצוי לייבא את Montserrat מ-Google Fonts) */
+  font-family: 'Montserrat', sans-serif; 
+  margin: 0;
+  padding: 0;
+}
+
+/* סגנון בוטיק לכותרות */
+h1, h2, h3, .product-title {
+  /* פונט אלגנטי לכותרות (רצוי לייבא את Playfair Display) */
+  font-family: 'Playfair Display', serif; 
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text-main);
+}
+
+/* כפתור בוטיקי נקי */
+.btn-primary {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--text-main);
+  padding: 10px 24px;
+  border-radius: 0; /* כפתור מרובע נראה רשמי ונקי יותר */
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase; /* אותיות רישיות באנגלית משדרות יוקרה */
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--text-main);
+  color: #FFFFFF;
+}
+/* =========================================
+   Navbar, Hero, Hover, Footer
+   ========================================= */
+
+/* סרגל ניווט (Navbar) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #fdfbf7; /* צבע קרם עדין */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar .logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.navbar .cart {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: background-color 0.3s;
+}
+
+.navbar .cart:hover {
+  background-color: #555;
+}
+
+/* באנר אווירה עליון (Hero Banner) */
+.hero-banner {
+  /* תמונת אפייה יפה מ-Unsplash כרקע */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1556910103-1c02745a8e2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  margin: 0 0 10px 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* =========================================
+   product
+   ========================================= */
+/* מיכל התמונה */
+.image-container {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+   /* סידור התמונות כדי שלא ייחתכו */
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* שונה מ-cover כדי להציג תמונה מלאה */
+  background-color: #fafafa; /* רקע עדין למקרה שהתמונה צרה/רחבה מדי */
+  transition: transform 0.5s ease; /* אנימציה חלקה של חצי שנייה */
+}
+
+/* המעטפת הראשית של הכרטיסייה */
+.product-card {
+  position: relative; 
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 4px; 
+  transition: all 0.3s ease; /* מאחד את כל מעברי האנימציה (צבע, תזוזה והצללה) */
+}
+
+/* אפקט ריחוף על הכרטיסייה כולה (הקפצה + שינוי צבע גבול + הצללה) */
+.product-card:hover {
+  transform: translateY(-5px); 
+  border-color: var(--accent-color);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* אפקט זום לתמונה בעת ריחוף על הכרטיסייה */
+.product-card:hover .product-image {
+  transform: scale(1.08);
+  transition: transform 0.3s ease; /* הוספתי לך כאן transition כדי שהזום יהיה חלק ולא קופצני */
+}
+
+/* אזור הטקסט (כותרת, תיאור, מחיר) */
+.product-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* החלק הקריטי שדוחף את הכפתור למטה */
+}
+
+/* כפתור "הוסף לסל" */
+.add-to-cart-btn {
+  margin-top: auto; /* מצמיד את הכפתור הכי למטה שאפשר */
+}
+
+
+
+/* תגית על המוצר */
+.badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #d4af37; /* צבע זהב */
+  color: white;
+  padding: 5px 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 4px;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* חלק תחתון (Footer) */
+.footer {
+  background-color: #2c2c2c;
+  color: #eee;
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 80px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+}
+/* =========================
+   תוספות עבור לוגו, ותפריט
+   ========================= */
+
+/* עיצוב הלוגו בנאב-בר */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+}
+
+/* עיצוב תפריט הניווט הנפתח */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  border-radius: 8px;
+  top: 100%;
+  right: 0;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 15px;
+  text-decoration: none;
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dropdown-content a:hover {
+  background-color: #fdfbf7;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* =========================
+   Checkout Page
+   ========================= */
+
+.checkout-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.checkout-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #d8d1ca;
+  background-color: #fff;
+  color: var(--text-main);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.checkout-input:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(193, 166, 141, 0.15);
+}
+
+
+@media (max-width: 750px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+}
+/* =========================================
+   Mobile layout
+   ========================================= */
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  #root {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  h1 {
+    max-width: 75%;
+    margin: 0 auto !important;
+    font-size: 1.7rem;
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  nav {
+    flex-wrap: wrap !important;
+    gap: 14px !important;
+    margin-bottom: 25px !important;
+  }
+
+  nav a,
+  nav button,
+  nav span {
+    font-size: 0.9rem !important;
+  }
+
+  .product-card {
+    width: 100%;
+  }
+
+  .image-container {
+    height: 190px;
+  }
+
+  .product-info {
+    padding: 16px;
+  }
+
+  .checkout-layout {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .checkout-layout form,
+  .checkout-layout section {
+    padding: 18px !important;
+  }
+
+  .cart-item {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 18px;
+  }
+
+  .cart-actions {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px !important;
+  }
+
+  .admin-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  input,
+  select,
+  button {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 480px) {
+  nav {
+    gap: 9px !important;
+    padding: 0 4px;
+  }
+
+  nav a,
+  nav button,
+  nav span {
+    font-size: 0.82rem !important;
+  }
+}
+@media (max-width: 768px) {
+  .admin-tabs {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .admin-tabs button {
+    width: 100%;
+    padding: 9px !important;
+  }
+
+  .admin-product-form {
+    grid-template-columns: 1fr !important;
+  }
+
+  .admin-form-full-width {
+    grid-column: span 1 !important;
+  }
+
+  .admin-image-upload,
+  .admin-form-buttons {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .admin-image-upload input,
+  .admin-image-upload button,
+  .admin-form-buttons button {
+    width: 100%;
+  }
+}
+.products-table-wrapper {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.products-table-wrapper table {
+  min-width: 650px;
+}
+
+@media (max-width: 768px) {
+  .products-table-wrapper {
+    display: block;
+    overflow-x: scroll !important;
+    border: 1px solid #eeeeee;
+  }
+
+  .products-table-wrapper::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .products-table-wrapper::-webkit-scrollbar-thumb {
+    background-color: #999999;
+    border-radius: 5px;
+  }
+
+  .products-table-wrapper::-webkit-scrollbar-track {
+    background-color: #eeeeee;
+  }
+}
+
+@media (max-width: 768px) {
+  .products-table-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .products-table-wrapper table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed !important;
+  }
+
+  /* מסתיר בטלפון את ID ואת Category */
+  .products-table-wrapper th:nth-child(1),
+  .products-table-wrapper td:nth-child(1),
+  .products-table-wrapper th:nth-child(3),
+  .products-table-wrapper td:nth-child(3) {
+    display: none;
+  }
+
+  /* Name */
+  .products-table-wrapper th:nth-child(2),
+  .products-table-wrapper td:nth-child(2) {
+    width: 34% !important;
+  }
+
+  /* Price */
+  .products-table-wrapper th:nth-child(4),
+  .products-table-wrapper td:nth-child(4) {
+    width: 18% !important;
+  }
+
+  /* Stock */
+  .products-table-wrapper th:nth-child(5),
+  .products-table-wrapper td:nth-child(5) {
+    width: 16% !important;
+  }
+
+  /* Actions */
+  .products-table-wrapper th:nth-child(6),
+  .products-table-wrapper td:nth-child(6) {
+    width: 32% !important;
+  }
+
+  .products-table-wrapper th,
+  .products-table-wrapper td {
+    padding: 6px 3px !important;
+    font-size: 0.7rem !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+
+  .products-table-wrapper td:nth-child(6) button {
+    display: block !important;
+    width: 100% !important;
+    margin: 3px 0 !important;
+    padding: 5px 2px !important;
+    font-size: 0.65rem !important;
+  }
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #print-receipt,
+  #print-receipt * {
+    visibility: visible;
+  }
+
+  #print-receipt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: none !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
+body.large-text {
+  font-size: 118%;
+}
+
+body.high-contrast {
+  filter: contrast(1.65) saturate(1.25);
+}
+
+body.high-contrast button,
+body.high-contrast input,
+body.high-contrast textarea,
+body.high-contrast select {
+  outline: 2px solid #111;
+  outline-offset: 2px;
+  font-weight: 700;
+}
+body.grayscale {
+  filter: grayscale(100%);
+}
+.accessibility-widget {
+  position: fixed;
+  left: 24px;
+  bottom: 30px;
+  z-index: 1000;
+}
+
+@media (max-width: 600px) {
+  .accessibility-widget {
+    left: 14px;
+    bottom: 16px;
+  }
+}
+.assistant-widget {
+  position: fixed;
+  right: 24px;
+  bottom: 30px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #111;
+  color: #d4af37;
+  border: 2px solid #d4af37;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+  text-decoration: none;
+  z-index: 1000;
+}
+
+@media (max-width: 600px) {
+  .assistant-widget {
+    right: 14px;
+    bottom: 16px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .assistant-widget svg {
+    width: 23px;
+    height: 23px;
+  }
+}
